@@ -65,11 +65,18 @@ object Lists extends App {
     def foldRight[A,B](l: List[A])(acc: B)(f: (A,B)=>B): B =
       foldRightViaFoldleft(l)(acc)(f)
 
-    def filterByFlatmap[A](l: List[A])(f: A => Boolean): List[A] = ???
+    def filterByFlatmap[A](l: List[A])(f: A => Boolean): List[A] = filter(l)(f)
 
-    def appendByFold[A](l1: List[A], l2: List[A]): List[A] = ???
+    def appendByFold[A](l1: List[A], l2: List[A]): List[A] = append(l1, l2)
 
-    def length(l: List[_]): Int = ???
+    def length(l: List[_]): Int = l match {
+      case Cons(_,_) => 1 + length(drop(l,1))
+      case Nil() => 0
+    }
+
+    //return true if the filtered map by function has a length greater than 0
+    // (contains something that is evaluated true by the predicate)
+    def contains[A](l: List[A])(f: A => Boolean): Boolean = length(filterByFlatmap(l)(f)) > 0
   }
 
   // Note "List." qualification
