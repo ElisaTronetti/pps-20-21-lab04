@@ -77,6 +77,7 @@ object Lists extends App {
     //return true if the filtered map by function has a length greater than 0
     // (contains something that is evaluated true by the predicate)
     def contains[A](l: List[A])(f: A => Boolean): Boolean = length(filterByFlatmap(l)(f)) > 0
+
   }
 
   // Note "List." qualification

@@ -1,6 +1,7 @@
 package u04lab.code
 
 import scala.util.Random
+import Optionals.Option
 
 object Streams extends App {
   import Lists._
@@ -58,6 +59,21 @@ object Streams extends App {
 
     def generate[A](next: => A): Stream[A] = cons(next, generate(next))
 
+    //generate a list stream from a list
+    def fromList[A](list : List[A]): Stream[A] = list match {
+      case List.Cons(h,t) => cons(h, fromList(t))
+      case List.Nil() => empty()
+    }
+
+    def head[A](stream: Stream[A]): Option[A] = stream match {
+      case Cons(h,_) => Option.of(h())
+      case Empty() => Option.empty
+    }
+
+    def tail[A](stream: Stream[A]): Stream[A] = stream match {
+      case Cons(_,t) => t()
+      case Empty() => empty()
+    }
   }
 
   import Stream._
