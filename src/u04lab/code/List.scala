@@ -88,6 +88,10 @@ object Lists extends App {
     // (contains something that is evaluated true by the predicate)
     def contains[A](l: List[A])(f: A => Boolean): Boolean = length(filterByFlatmap(l)(f)) > 0
 
+    def allMatch[A](el: A)(list: List[A]): Boolean = list match {
+      case Cons(h, t) => if(el == h) allMatch(el)(t) else false
+      case Nil() => true
+    }
   }
 
   // Note "List." qualification
