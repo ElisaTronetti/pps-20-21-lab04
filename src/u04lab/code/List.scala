@@ -9,6 +9,14 @@ object Lists extends App {
 
   // a companion object (i.e., module) for List
   object List {
+    def apply[A](elements: A*): List[A] = {
+      var innerList: List[A] = Nil()
+      for(i <- elements) {
+        innerList = append(innerList, Cons(i, Nil()))
+      }
+      innerList
+    }
+
     case class Cons[E](head: E, tail: List[E]) extends List[E]
     case class Nil[E]() extends List[E]
 
@@ -65,14 +73,16 @@ object Lists extends App {
     def foldRight[A,B](l: List[A])(acc: B)(f: (A,B)=>B): B =
       foldRightViaFoldleft(l)(acc)(f)
 
-    def filterByFlatmap[A](l: List[A])(f: A => Boolean): List[A] = filter(l)(f)
-
     def appendByFold[A](l1: List[A], l2: List[A]): List[A] = append(l1, l2)
 
+
+    //used for exercises
     def length(l: List[_]): Int = l match {
       case Cons(_,_) => 1 + length(drop(l,1))
       case Nil() => 0
     }
+
+    def filterByFlatmap[A](l: List[A])(f: A => Boolean): List[A] = filter(l)(f)
 
     //return true if the filtered map by function has a length greater than 0
     // (contains something that is evaluated true by the predicate)
