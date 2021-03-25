@@ -37,7 +37,7 @@ class StudentTest {
     s1.enrolling(cPPS, cPCD)
     s2.enrolling(cSDR)
 
-    assertEquals(Cons("PPS", Cons("PCD", Nil())), s1.courses)
+    assertEquals(Cons("PCD", Cons("PPS", Nil())), s1.courses)
     assertEquals(Cons("SDR", Nil()), s2.courses)
   }
 

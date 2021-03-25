@@ -25,7 +25,7 @@ object Student {
 
     override def enrolling(courses: Course*): Unit = {
       for (c <- courses){
-        listOfCourses = append(listOfCourses, Cons(c, Nil()))
+        listOfCourses = Cons(c, listOfCourses)
       }
     }
 

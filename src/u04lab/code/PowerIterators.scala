@@ -31,14 +31,24 @@ class PowerIteratorsFactoryImpl extends PowerIteratorsFactory {
       private var pastList: List[A] = nil
 
       override def next(): Option[A] = {
+        //simplified implementation
+        stream match {
+          case Stream.Cons(head, tail) =>
+            pastList = List.append(pastList, Cons(head(), Nil()))
+            stream = tail()
+            Option.of(head())
+          case Stream.Empty() => Option.empty
+        }
+        //old implementation
+        /*
         val nextElem = Stream.head(stream)
+        stream = Stream.tail(stream)
         nextElem match {
           case Option.Some(x) =>
             pastList = List.append(pastList, Cons(x, Nil()))
-            stream = Stream.tail(stream)
             nextElem
           case _ => nextElem
-        }
+        } */
       }
 
       override def allSoFar(): List[A] = pastList
